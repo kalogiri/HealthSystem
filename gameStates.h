@@ -5,11 +5,17 @@ class gameStates
 {
 public:
 	void fontLoader();
-	void drawString();
+	void drawGameOverString();
+	void drawGameStartString();
 	void displayGameOver();
 	void drawEdges();
+	void hover();
 
-	ofTrueTypeFont bigText, control, quit;
+	ofTrueTypeFont bigTextForStartScreen, bigTextForGameOverScreen, control, quit, restart;
+	int 
+		hoverRestartColorRed, hoverRestartColorGreen, hoverRestartColorBlue,
+		hoverExitColorRed, hoverExitColorGreen, hoverExitColorBlue;
+	bool hoverRestartState, hoverExitState;
 
 	gameStates(void);
 	~gameStates(void);
