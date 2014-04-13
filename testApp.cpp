@@ -7,6 +7,8 @@ void testApp::setup(){
 	right = false;
 	left = false;
 	gameStart = true;
+	gameReset = false;
+	gameWait = false;
 	g.fontLoader();
 	ofBackground(92,1,106);
 }//endSetup
@@ -53,23 +55,35 @@ void testApp::update(){
 
 //--------------------------------------------------------------
 void testApp::draw(){
-
+	
+	//cout<<"MouseX: "<<ofGetMouseX()<<endl;
+	cout<<"MouseY: "<<ofGetMouseY()<<endl;
+	//Start drawing everything when gameStart = true 
 	if(gameStart == true) {
 		colliderObjectUpdate();
 		playerMove();
 		c.playerDisplay();
-		c.dead = false;
 	}//end gameStart == true
 
-	if(c.dead == true) {
+	//if the 
+	if(c.getDead() == true) {
 		gameStart = false;
+		gameReset = true;
 	}//end c.dead == true
-	
+
 	if(gameStart == false) {
 		g.displayGameOver();
-		g.drawString();
+		g.drawGameOverString();
 		g.drawEdges();
+		g.hover();
 	}//end gameStart == false
+
+	if(gameReset == true) {
+		ti.clear();
+		c.reset();
+		gameWait = true;
+		gameReset = false;
+	}
 }//end draw
 
 //--------------------------------------------------------------
@@ -89,6 +103,10 @@ void testApp::playerMove(){
     if(left == true) {
         c.pos.x--;
     }//end if left
+
+	if(gameReset == true) {
+		gameStart = true;
+	}
 }//end playerMove
 
 //--------------------------------------------------------------
@@ -119,6 +137,13 @@ void testApp::keyPressed(int key){
     if(key == 100|| key == 358) {//Right
         right = true;
     }//end if right
+	
+	//The space key here is for debug purpose for button functionality
+	/*
+	if(key == 32) {//Space key
+		//Do stuff here to emulate button scenarios.
+	}//end if space
+    */
 }//endKeyPressed
 
 //--------------------------------------------------------------
@@ -135,4 +160,34 @@ void testApp::keyReleased(int key){
     if(key == 100|| key == 358) {//Right
         right = false;
     }//end if right
+	
 }//endKeyReleleased
+
+//--------------------------------------------------------------
+void testApp::mousePressed(int x, int y, int button){
+	//Shooting the bullets when pressing a mouseButton
+    //button 0 = left mouse button
+    //button 1 = middle mouse button
+    //button 3 = right mouse button
+
+    if(button == 0) {
+		if(ofGetMouseX() >= 251 && ofGetMouseX() < 302 && 
+		   ofGetMouseY() >= 236 && ofGetMouseY() < 250) {
+			if(gameStart == false) {
+				if(gameWait == true) {
+					gameStart = true;
+					gameWait = false;
+				}//end if gameWait
+				gameReset = true;
+				gameStart = true;
+			}//end if gameStart = false
+		}//end if restart button detection
+		
+		if(ofGetMouseX() >= 310 && ofGetMouseX() < 335 && 
+		   ofGetMouseY() >= 236 && ofGetMouseY() < 250) {
+			if(gameStart == false) {
+				exitApp();
+			}//end if gameStart = false
+		}//end if exit button detection
+    }//end if left mouseButton
+}//end mousePressed
