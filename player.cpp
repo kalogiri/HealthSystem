@@ -38,10 +38,17 @@ void player::updatePlayer() {
 			colorRed = 255;
 			colorGreen = 0;
 			colorBlue = 0;
-			
 			break;
 	}//end switch
 }//endUpdatePlayer
+
+bool player::getDead() { return dead; }
+
+void player::reset() {
+	deathCount = 0;
+	pos.set(50, 200);
+	dead = false;
+}
 
 void player::playerDisplay() {
 	ofSetColor(colorRed, colorGreen, colorBlue);
