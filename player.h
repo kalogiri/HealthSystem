@@ -18,7 +18,9 @@ public:
 	//Functions
 	void
 		playerDisplay(),
-		updatePlayer();
+		updatePlayer(),
+		reset();
+	bool getDead();
 	
 	~player(void);
 };
