@@ -20,6 +20,11 @@ void collider::updateColliderObject() {
 	pos+=vel;
 }
 
+void collider::reset() {
+	collided = false;
+	pos.set(600,ofRandom(55,330));
+	vel.set(ofRandom(-1,-3),0);
+}
 void collider::drawColliderObject(){
 	ofSetColor(255,0,0);
 	ofFill();
