@@ -5,7 +5,7 @@
 #include "collider.h"
 #include "gameStates.h"
 
-class testApp : public ofBaseApp{
+class testApp : public ofBaseApp {
 	public:
 		void setup();
 		void update();
@@ -18,7 +18,7 @@ class testApp : public ofBaseApp{
 	//Variables
 		bool 
 			up,down,right,left,
-			gameStart,gameEnd;
+			gameStart,gameReset,gameWait;
 
 		//The player
 		player c;
@@ -32,4 +32,5 @@ class testApp : public ofBaseApp{
 
 		void keyPressed(int key);
 		void keyReleased(int key);
+		void mousePressed(int x, int y, int button);
 };
